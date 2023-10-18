@@ -1,26 +1,27 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ExpenseTrackerModel {
 
-  public List<Transaction> transactions;
+  private List<Transaction> transactions;
 
   public ExpenseTrackerModel() {
-    transactions = new ArrayList<>(); 
+    this.transactions = new ArrayList<>(); 
   }
 
   public void addTransaction(Transaction t) {
-    transactions.add(t);
+    this.transactions.add(t);
   }
 
   public void removeTransaction(Transaction t) {
-    transactions.remove(t);
+    this.transactions.remove(t);
   }
 
   public List<Transaction> getTransactions() {
-    return transactions;
+    return Collections.unmodifiableList(transactions);
   }
 
 }
