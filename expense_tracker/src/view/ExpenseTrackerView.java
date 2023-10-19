@@ -208,7 +208,7 @@ public class ExpenseTrackerView extends JFrame {
         } else if (selectedFilterBydd2 != "no selection") {
             return selectedFilterBydd2;
         } 
-            return "Select something";
+            JOptionPane.showMessageDialog(this, "Please select a filter!", "Error", JOptionPane.ERROR_MESSAGE);
     }
     return "error";
   }
