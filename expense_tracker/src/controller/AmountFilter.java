@@ -3,6 +3,10 @@ package controller;
 import java.util.ArrayList;
 import model.Transaction;
 
+/**
+ * Amount Filter class which implenents the TransactionFilter
+ */
+
 public class AmountFilter implements TransactionFilter {
     private double minimumAmount;
     private double maximumAmount;
@@ -11,7 +15,9 @@ public class AmountFilter implements TransactionFilter {
         this.minimumAmount = minimumAmount;
         this.maximumAmount = maximumAmount;
     }
-
+/**
+ * filter function which will filter the transactions based on the minimum and maximum.
+ */
     @Override
     public List<Integer> filter(List<Transaction> transactions) {
         // Filter transactions based on the minimum and maximum amount

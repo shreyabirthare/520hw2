@@ -44,6 +44,11 @@ public class ExpenseTrackerController {
     view.reset(model.getTransactions());
     return true;
   }
+  /**
+   * applies filter based on the strategy
+   * strategy decided based on the dropdown.
+   * @param filterT
+   */
   public void applyFilter(TransactionFilter filterT) {
     List<Transaction> transactions =  model.getTransactions();
     List<Integer> filteredTransactions = filterT.filter(transactions);
@@ -53,23 +58,4 @@ public class ExpenseTrackerController {
     view.highlightRows(filteredTransactions);
     refresh();
 }
-  // public boolean applyFilter(String category) {
-  //   List<Transaction> tran= filterTransactions(category);
-  //   List<Transaction> transactions =  model.getTransactions();
-  //   //view.highlight(tran, transactions);
-  //   view.highlight(transactions, category);
-  //   //view.highlight(transactions, category);
-  //   return true;
-  // }
-  // public List<Transaction> filterTransactions(String category){
-  //   List<Transaction> transactions =  model.getTransactions();
-  //   List<Transaction> filtered =  null;
-  //   if(category == "ALL"){
-  //     return transactions;
-  //   }
-  //   filtered  = transactions.stream().filter(transaction -> transaction.getCategory().equalsIgnoreCase(category))
-  //               .collect(Collectors.toList());
-  //   return filtered;
-  // }
-  // Other controller methods
-}
+  }

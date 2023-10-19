@@ -30,7 +30,7 @@ public class ExpenseTrackerView extends JFrame {
 
   public ExpenseTrackerView() {
     setTitle("Expense Tracker"); // Set title
-    setSize(600, 400); // Make GUI larger
+    setSize(1000, 400); // Make GUI larger
 
     String[] columnNames = {"serial", "Amount", "Category", "Date"};
     this.model = new DefaultTableModel(columnNames, 0);
@@ -87,7 +87,10 @@ public class ExpenseTrackerView extends JFrame {
   
   }
 
-
+/**
+ * to remove the filtering 
+ * @param all
+ */
     public void reset(List<Transaction> all){
    // System.out.println("Here in reset");
     for(Transaction ft: all){
@@ -106,7 +109,10 @@ public class ExpenseTrackerView extends JFrame {
     }
     transactionsTable.updateUI();
   }
-
+/**
+ * Highlight the filtered rows
+ * @param rowsToColour
+ */
   public void highlightRows(List<Integer> rowsToColour){
    // System.out.println("Here");
       transactionsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -132,23 +138,22 @@ public class ExpenseTrackerView extends JFrame {
 
 
   public void refreshTable(List<Transaction> transactions) {
-      // Clear existing rows
+
       int rowNum = model.getRowCount();
       //System.out.println(rowNum);
       model.setRowCount(0);
       //System.out.println(model.getRowCount());
-      // Get row count
+
        rowNum = model.getRowCount();
       double totalCost=0;
-      // Calculate total cost
+ 
       for(Transaction t : transactions) {
         totalCost+=t.getAmount();
       }
-      // Add rows from transactions list
       for(Transaction t : transactions) {
         model.addRow(new Object[]{rowNum+=1,t.getAmount(), t.getCategory(), t.getTimestamp()}); 
       }
-        // Add total row
+        
         Object[] totalRow = {"Total", null, null, totalCost};
         model.addRow(totalRow);
   
@@ -166,6 +171,10 @@ public class ExpenseTrackerView extends JFrame {
   public JButton getRestBtn() {
     return resetBtn;
   }
+  /**
+   * apply the filter
+   * @return filter button
+   */
   public JButton applyFilter() {
     return filterButton;
   }
@@ -194,7 +203,10 @@ public class ExpenseTrackerView extends JFrame {
   public String getCategoryField() {
     return categoryField.getText();
   }
-
+/**
+ * get the filtering strategy based on the selected filter
+ * @return one of the strategies
+ */
   public String getChosenFilter(){
     String selectedFilterBydd1 = (String) dropdownCat.getSelectedItem();
     String selectedFilterBydd2 = (String) dropdownAmt.getSelectedItem();
@@ -202,7 +214,6 @@ public class ExpenseTrackerView extends JFrame {
     if (selectedFilterBydd1 != "no selection" && selectedFilterBydd2 != "no selection") {
       JOptionPane.showMessageDialog(this, "Please select only one filter at a time.", "Error", JOptionPane.ERROR_MESSAGE);
     } else {
-        // Continue with your filtering logic here
         if (selectedFilterBydd1 != "no selection") {
             return selectedFilterBydd1;
         } else if (selectedFilterBydd2 != "no selection") {
@@ -217,297 +228,3 @@ public class ExpenseTrackerView extends JFrame {
     this.categoryField = categoryField;
   }
 }
-
-    //     dropdown1.addActionListener(new ActionListener() {
-    //         @Override
-    //         public void actionPerformed(ActionEvent e) {
-    //             String selectedFirstOption = (String) firstDropdown.getSelectedItem();
-    //             updateSecondDropdown(selectedFirstOption);
-    //         }
-    //     });
-
-    //     // Create a filter button
-    //     JButton filterButton = new JButton("Filter");
-
-    //     // Add an action listener to the filter button
-    //     filterButton.addActionListener(new ActionListener() {
-    //         @Override
-    //         public void actionPerformed(ActionEvent e) {
-    //             String selectedFirstOption = (String) firstDropdown.getSelectedItem();
-    //             String selectedSecondOption = (String) secondDropdown.getSelectedItem();
-    //             controller.filterTransactions(selectedFirstOption, selectedSecondOption);
-    //         }
-    //     });
-    // }
-
-    // public void updateFirstDropdown(List<String> options) {
-    //     DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(options.toArray(new String[0]));
-    //     firstDropdown.setModel(model);
-    // }
-
-    // public void updateSecondDropdown(List<String> options) {
-    //     DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(options.toArray(new String[0]));
-    //     secondDropdown.setModel(model);
-    // }
-
-
-
-
-
-//   public void highlightRows2(List<Transaction> filteredTransactions) {
-//     DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-//     renderer.setBackground(new Color(173, 255, 168)); // Light green
-
-//     for (Transaction ft : filteredTransactions) {
-//         String idOfTrans = ft.getTimestamp();
-//         for (int row = 0; row < model.getRowCount(); row++) {
-//             Object cellValue = model.getValueAt(row, 3);
-//             if (cellValue != null && cellValue.toString().equals(idOfTrans)) {
-//                 // Apply the highlighting style to the entire row
-//                 for (int col = 0; col < model.getColumnCount(); col++) {
-//                     transactionsTable.getColumnModel().getColumn(col).setCellRenderer(renderer);
-//                 }
-//             }
-//         }
-//     }
-
-//     // Trigger rendering update for the entire table
-//     transactionsTable.repaint();
-// }
-
-//   public void highlight2(List<Transaction> filteredTransactions, List<Transaction> all) {
-//     // Set the cell renderer for the entire table
-//     transactionsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-//         @Override
-//         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-//             // Get the transaction for the current row
-//             Transaction t = all.get(table.convertRowIndexToModel(row));
-
-//             // Determine if the transaction should be highlighted
-//             boolean shouldHighlight = filteredTransactions.contains(t);
-
-//             if (shouldHighlight) {
-//                 c.setBackground(new Color(173, 255, 168)); // Light green
-//             } else {
-//                 c.setBackground(table.getBackground()); // No background color
-//             }
-
-//             return c;
-//         }
-//     });
-
-//     // Clear existing rows
-//     model.setRowCount(0);
-
-//     // Get row count
-//     int rowNum = 1; // Initialize with 1 for the header row
-//     double totalCost = 0;
-
-//     // Add rows from transactions list
-//     for (Transaction t : all) {
-//         model.addRow(new Object[]{rowNum, t.getAmount(), t.getCategory(), t.getTimestamp()});
-//         totalCost += t.getAmount();
-//         rowNum++; // Increment the row number
-//     }
-
-//     // Add total row
-//     Object[] totalRow = {"Total", null, null, totalCost};
-//     model.addRow(totalRow);
-
-//     // Fire table update
-//     transactionsTable.updateUI();
-// }
-
-
-// //   public void highlightColourErr(List<Transaction> filteredTransactions, List<Transaction> all) {
-// //     // Clear existing rows
-// //     model.setRowCount(0);
-
-// //     // Get row count
-// //     int rowNum = 1; // Initialize with 1 for the header row
-// //     double totalCost = 0;
-
-// //     for (Transaction t : all) {
-// //         // Determine if the transaction should be highlighted
-// //         boolean shouldHighlight = filteredTransactions.contains(t);
-
-// //         // Add rows to the table model
-// //         model.addRow(new Object[]{rowNum, t.getAmount(), t.getCategory(), t.getTimestamp()});
-// //         totalCost += t.getAmount();
-// //         String add = "NO";
-// //         if(shouldHighlight)
-// //           add = "Yes";
-// //         System.out.println(rowNum + " " + add);
-// //         //if (shouldHighlight) {
-// //             // Highlight the row
-// //             transactionsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-// //                 @Override
-// //                 public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-// //                     Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-// //                     if (shouldHighlight) {
-// //                       c.setBackground(new Color(173, 255, 168)); // Light green
-// //                     } else {
-// //                       c.setBackground(new Color(4, 255, 168)); // No background color
-// //                     }
-// //                     return c;
-// //                 }
-// //             });
-// //         // } else {
-// //         //     // Remove highlighting for the row
-// //         //     transactionsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer());
-// //         // }
-        
-// //         rowNum++; // Increment the row number
-// //     }
-
-// //     // Add total row
-// //     Object[] totalRow = {"Total", null, null, totalCost};
-// //     model.addRow(totalRow);
-
-// //     // Fire table update
-// //     transactionsTable.updateUI();
-// // }
-
-
-  
-
-
-// // this works - colour proper but indexing error
-
-//   public void highlight(List<Transaction> filteredTransactions, List<Transaction> all) {
-//     // Set the cell renderer for the entire table
-//     System.out.println("in");
-    
-//     if(!(filteredTransactions.equals(all))){
-//       transactionsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-//         @Override
-//         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-//             // Get the transaction for the current row
-//             Transaction t = all.get(row);
-//             System.out.println(t.getAmount() + " " + t.getCategory());
-//             // Determine if the transaction should be highlighted
-//             boolean shouldHighlight = filteredTransactions.contains(t);
-
-//             if (shouldHighlight  ) {
-//                 c.setBackground(new Color(173, 255, 168)); // Light green
-//             } else {
-//                 c.setBackground(table.getBackground()); // No background color
-//             }
-
-//             return c;
-//         }
-//     });
-//     }else{
-//       transactionsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-//         @Override
-//         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-//             // Get the transaction for the current row
-//             Transaction t = all.get(row);
-//             System.out.println(t.getAmount() + " " + t.getCategory());
-//             // Determine if the transaction should be highlighted
-//             //boolean shouldHighlight = filteredTransactions.contains(t);
-
-      
-//                 c.setBackground(table.getBackground()); // No background color
-            
-
-//             return c;
-//         }
-//     });
-//     }
-// System.out.println("out");
-//     // Clear existing rows
-//     model.setRowCount(0);
-
-//     // Get row count
-//     int rowNum = 0;
-//     double totalCost = 0;
-
-//     // Calculate total cost
-//     for (Transaction t : all) {
-//         totalCost += t.getAmount();
-//         System.out.println("adding trans");
-//         model.addRow(new Object[]{rowNum+=1, t.getAmount(), t.getCategory(), t.getTimestamp()});
-//     }
-
-//     //Add total row
-//     //rowNum+=1
-//    // Object[] totalRow = {"Total", null, null, totalCost};
-//    // model.addRow(totalRow);
-//   System.out.println("adding trans");
-//       // Fire table update
-//       transactionsTable.updateUI();
-  
-// }
-
-// public void highlightRows(List<Transaction> all, String cat) {
-//   DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-//   renderer.setBackground(new Color(173, 255, 168)); // Light green
-
-//   for (int row = 0; row < model.getRowCount(); row++) {
-//       Object amountObject = model.getValueAt(row, 1);
-//       String category = (String) model.getValueAt(row, 2);
-//       System.out.println(category + " " + cat + " " + cat.equalsIgnoreCase(category) + " " + (amountObject != null) + " "+ (category != null));
-
-//       if (amountObject != null && category != null && category.equals(cat)) {
-//           double amount = (double) amountObject;
-//           System.out.println(amount);
-
-//           for (int col = 0; col < model.getColumnCount(); col++) {
-//               transactionsTable.getColumnModel().getColumn(col).setCellRenderer(renderer);
-//           }
-
-//           // Trigger rendering update for the entire table
-//           transactionsTable.repaint();
-//       }
-//   }
-//   transactionsTable.updateUI();
-// }
-
-
-// public void highlight(List<Transaction> transactions, String categoryToHighlight) {
-//   DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
-//     renderer.setBackground(new Color(173, 255, 168));
-//   // Clear existing rows
-//   int rowNum = model.getRowCount();
-//   model.setRowCount(0);
-//   System.out.println(rowNum);
-//   // Get row count
-//   rowNum = model.getRowCount();
-//   System.out.println(rowNum);
-//   double totalCost = 0;
-
-//   // Calculate total cost
-//   for (Transaction t : transactions) {
-//       totalCost += t.getAmount();
-//   }
-
-//   // Add rows from transactions list
-//   for (Transaction t : transactions) {
-//       model.addRow(new Object[]{rowNum += 1, t.getAmount(), t.getCategory(), t.getTimestamp()});
-      
-//       // Check if the category matches the one you want to highlight
-//       if (t.getCategory().equalsIgnoreCase(categoryToHighlight)) {
-//         System.out.println("IN");
-//           // Highlight the row by setting the background color
-//           for (int col = 0; col < model.getColumnCount(); col++) {
-//               //System.out.
-//               transactionsTable.getColumnModel().getColumn(col).setCellRenderer(renderer);
-//           }
-//       }
-//   }
-
-//   // Add total row
-//   Object[] totalRow = {"Total", null, null, totalCost};
-//   model.addRow(totalRow);
-
-//   // Fire table update
-//   transactionsTable.updateUI();
-// }
-

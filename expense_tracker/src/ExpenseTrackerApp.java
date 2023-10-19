@@ -37,13 +37,17 @@ public class ExpenseTrackerApp {
         view.toFront();
       }
     });
-
+/**
+ * reset button to remove filtering 
+ */
     view.getRestBtn().addActionListener(e -> {
               List<Transaction> all =  model.getTransactions();
         view.reset(all);
         controller.refresh();
     });
-
+/**
+ * listen to actions on filter button 
+ */
     view.applyFilter().addActionListener(e -> {
       // Get transaction data from view
       List<Transaction> all =  model.getTransactions();
@@ -74,7 +78,7 @@ public class ExpenseTrackerApp {
         controller.applyFilter(af);
       }
 
-      // Call controller to add transaction
+ 
       
       
       if (!added) {
