@@ -11,6 +11,7 @@ public class Transaction {
   private String timestamp;
 
   public Transaction(double amount, String category) {
+
     this.amount = amount;
     this.category = category;
     this.timestamp = generateTimestamp();
@@ -23,6 +24,8 @@ public class Transaction {
   private void setAmount(double amount) {
     this.amount = amount;
   }
+
+  
 
   public String getCategory() {
     return category;
