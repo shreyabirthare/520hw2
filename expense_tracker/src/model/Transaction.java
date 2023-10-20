@@ -4,12 +4,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Transaction Class
+ */
+
 public class Transaction {
 
+  /**
+   * Applied Encapuslation
+   */
   private double amount;
   private String category;
   private String timestamp;
 
+  /**
+   * 
+   * @param amount
+   * @param category
+   */
   public Transaction(double amount, String category) {
 
     this.amount = amount;
@@ -21,6 +33,10 @@ public class Transaction {
     return amount;
   }
 
+  /**
+   * 
+   * @param amount
+   */
   private void setAmount(double amount) {
     this.amount = amount;
   }
@@ -31,6 +47,10 @@ public class Transaction {
     return category;
   }
 
+  /**
+   * 
+   * @param category
+   */
   private void setCategory(String category) {
     this.category = category; 
   }

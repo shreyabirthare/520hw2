@@ -6,6 +6,10 @@ import java.util.List;
 
 public class ExpenseTrackerModel {
 
+  
+  /**
+   * Encapsulation of transactions list
+   */
   private List<Transaction> transactions;
 
   public ExpenseTrackerModel() {
@@ -20,6 +24,10 @@ public class ExpenseTrackerModel {
     this.transactions.remove(t);
   }
 
+  /**
+   * immutability implemented
+   * @return
+   */
   public List<Transaction> getTransactions() {
     return Collections.unmodifiableList(transactions);
   }
